@@ -3,7 +3,9 @@ const os = require('node:os');
 const fs = require('node:fs');
 const EventEmitter = require('node:events');
 
-const logger = require('./logger');
+const log = require('./log');
+const Logger = require('./logger');
+const logger = new Logger();
 
 // First function
 function sayHello(name) {
@@ -13,7 +15,7 @@ function sayHello(name) {
 sayHello('Maxime');
 
 // Use logger module
-logger('Welcome');
+log('Welcome');
 
 // Use path module
 var pathObj = path.parse(__filename);
@@ -56,4 +58,12 @@ emitter.on('logging', (e) => {
     console.log(e.message);
 });
 
+// 2. Emit the event
 emitter.emit('logging', { message: 'This is my logging message.' })
+
+// Call logger function
+logger.on('messageLogged', (e) => {
+    console.log('Message logged.', e);
+});
+
+logger.log('Message');
