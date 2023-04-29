@@ -2,6 +2,7 @@ const path = require('node:path');
 const os = require('node:os');
 const fs = require('node:fs');
 const EventEmitter = require('node:events');
+const http = require ('node:http');
 
 const log = require('./log');
 const Logger = require('./logger');
@@ -67,3 +68,21 @@ logger.on('messageLogged', (e) => {
 });
 
 logger.log('Message');
+
+// http module usage
+const server = http.createServer((req, res) => {
+    if(req.url === '/') {
+        res.write('Hello World !');
+        res.end();
+    }
+
+    if(req.url === '/api/courses') {
+        res.write(JSON.stringify([1, 2, 3]));
+        res.end();
+    }
+});
+
+// Uncomment to launch server
+// server.listen(3000);
+
+console.log('Listening on port 3000...');
