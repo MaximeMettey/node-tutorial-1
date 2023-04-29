@@ -32,7 +32,7 @@ const files = fs.readdirSync('./');
 console.log(files);
 
 // Asynchronous
-fs.readdir('./', function(err, files) {
+fs.readdir('./', (err, files) => {
     if(err) console.log('Error:', err);
     else console.log('Result:', files);
 });
@@ -41,9 +41,19 @@ fs.readdir('./', function(err, files) {
 const emitter = new EventEmitter();
 
 // Register an event
-emitter.on('messageLogged', function() {
-    console.log('Listener called.')
+emitter.on('messageLogged', (e) => {
+    console.log('Listener called.', e)
 });
 
 // Raise an event
-emitter.emit('messageLogged');
+emitter.emit('messageLogged', { id: 1, url: 'http://test.org' });
+
+// Exercise : raise and handle logging event 
+// Raise: logging (data: message)
+
+// 1. Register the event
+emitter.on('logging', (e) => {
+    console.log(e.message);
+});
+
+emitter.emit('logging', { message: 'This is my logging message.' })
