@@ -6,6 +6,4 @@ function sayHello(name) {
 
 sayHello('Maxime');
 
-console.log(logger);
-
-logger.log('message');
+logger('Welcome.');
