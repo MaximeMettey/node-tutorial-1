@@ -1,3 +1,4 @@
+const path = require('node:path');
 const logger = require('./logger');
 
 function sayHello(name) {
@@ -5,5 +6,7 @@ function sayHello(name) {
 }
 
 sayHello('Maxime');
+logger('Welcome');
 
-logger('Welcome.');
+var pathObj = path.parse(__filename);
+console.log(pathObj);
