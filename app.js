@@ -1,5 +1,7 @@
 const path = require('node:path');
 const os = require('node:os');
+const fs = require('node:fs');
+
 const logger = require('./logger');
 
 // First function
@@ -22,3 +24,14 @@ var freeMemory = os.freemem();
 
 console.log(`Total Memory: ${totalMemory}`);
 console.log(`Free Memory: ${freeMemory}`);
+
+// File System module
+// Synchronous
+const files = fs.readdirSync('./');
+console.log(files);
+
+// Asynchronous
+fs.readdir('./', function(err, files) {
+    if(err) console.log('Error:', err);
+    else console.log('Result:', files);
+});
