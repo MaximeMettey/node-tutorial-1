@@ -82,7 +82,11 @@ const server = http.createServer((req, res) => {
     }
 });
 
+server.on('connection', (socket) => {
+    console.log('New connection...');
+});
+
 // Uncomment to launch server
-// server.listen(3000);
+server.listen(3000);
 
 console.log('Listening on port 3000...');
