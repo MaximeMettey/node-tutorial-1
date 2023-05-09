@@ -1,7 +1,8 @@
 require('dotenv').config({ path: './.env' });
+const Joi = require('joi');
 const express = require('express');
-const app = express();
 
+const app = express();
 app.use(express.json());
 
 const port = process.env.PORT || 3000;
@@ -34,10 +35,23 @@ app.get('/api/posts/:year/:month', (req, res) => {
 });
 
 app.post('/api/courses', (req, res) => {
+    const schema = Joi.object({
+        name: Joi.string().min(3).required()
+    });
+
+    const result = schema.validate(req.body);
+
+    if (result.error) {
+        res.status(400).send(result.error.details[0].message);
+        return;
+    }
+
     const course = {
         id: courses.length + 1,
         name: req.body.name
     };
+
     courses.push(course);
     res.send(course);
+
 });
