@@ -4,6 +4,8 @@
  */
 
 require('dotenv').config({ path: './.env' });
+const startupDebugger = require('debug')('app:startup');
+const dbDebugger = require('debug')('app:db');
 const Joi = require('joi');
 const express = require('express');
 const helmet = require('helmet');
@@ -23,12 +25,15 @@ app.use(helmet()); // Add headers to secure the app
 
 if (app.get('env') === 'development') {
     app.use(morgan('tiny')); // Log every request
-    console.log('Morgan enabled...');
+    startupDebugger('Morgan enabled...');
 }
 
 // Comment, just keep track of this part
 // app.use(logger);
 // app.use(auth);
+
+// DB Work
+dbDebugger('Connected to the database...');
 
 // Port handling
 const port = process.env.PORT || 3000;
@@ -49,7 +54,7 @@ const validateCourse = (course) => {
     const schema = Joi.object({
         name: Joi.string().min(3).required()
     });
-    // Vlaidation
+    // Validation
     return schema.validate(course);
 }
 
