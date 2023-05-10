@@ -6,10 +6,22 @@
 require('dotenv').config({ path: './.env' });
 const Joi = require('joi');
 const express = require('express');
+const logger = require('./logger');
+const auth = require('./auth');
 
 // Server
 const app = express();
+
+// Use Express
 app.use(express.json());
+
+// Creating custom middleware
+app.use(logger);
+
+// Auth middleware
+app.use(auth);
+
+// Port handling
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Listening on port ${port}...`);
