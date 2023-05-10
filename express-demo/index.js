@@ -20,7 +20,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(helmet()); // Add headers to secure the app
-app.use(morgan('tiny')); // Log every request
+
+if (app.get('env') === 'development') {
+    app.use(morgan('tiny')); // Log every request
+    console.log('Morgan enabled...');
+}
 
 // Comment, just keep track of this part
 // app.use(logger);
