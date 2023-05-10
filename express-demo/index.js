@@ -12,13 +12,10 @@ const auth = require('./auth');
 // Server
 const app = express();
 
-// Use Express
 app.use(express.json());
-
-// Creating custom middleware
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 app.use(logger);
-
-// Auth middleware
 app.use(auth);
 
 // Port handling
