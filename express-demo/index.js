@@ -18,6 +18,10 @@ const morgan = require('morgan');
 // Server
 const app = express();
 
+// Template engine - chapter 5.9
+app.set('view engine', 'pug');
+app.set('views', './views'); // default
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
@@ -63,7 +67,10 @@ const validateCourse = (course) => {
  */
 // Test Hello World
 app.get('/', (req, res) => {
-    res.send('Hello world !');
+    res.render('index', {
+        title: 'My Express App',
+        message: 'Hello'
+    });
 });
 
 // Get courses list
