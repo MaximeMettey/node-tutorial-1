@@ -6,8 +6,12 @@
 require('dotenv').config({ path: './.env' });
 const Joi = require('joi');
 const express = require('express');
-const logger = require('./logger');
-const auth = require('./auth');
+const helmet = require('helmet');
+const morgan = require('morgan');
+
+// Comment, just keep track of this part
+// const logger = require('./logger');
+// const auth = require('./auth');
 
 // Server
 const app = express();
@@ -15,8 +19,12 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
-app.use(logger);
-app.use(auth);
+app.use(helmet()); // Add headers to secure the app
+app.use(morgan('tiny')); // Log every request
+
+// Comment, just keep track of this part
+// app.use(logger);
+// app.use(auth);
 
 // Port handling
 const port = process.env.PORT || 3000;
